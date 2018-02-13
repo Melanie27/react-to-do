@@ -31,7 +31,15 @@ class App extends Component {
 	  const todo = todos[index];
 	  todo.isCompleted = todo.isCompleted ? false : true;  
 	  this.setState({todos: todos}); //update the component's state
-  }
+	}
+	
+	deleteToDo(index) {
+		const todos = this.state.todos;
+		const todo = todos[index];
+		const newTodos = todos.filter(e => e !== todo);
+	  this.setState({todos: newTodos});
+		
+	}
   
   render() {
     return (
@@ -39,7 +47,9 @@ class App extends Component {
       	<ul>
       		{this.state.todos.map((todo, index) =>
       			
-      			<ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
+						<ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } 
+						toggleComplete={ () => this.toggleComplete(index) } deleteToDo={ () => this.deleteToDo(index) }  />
+						
       			
       		
       		)}
@@ -48,6 +58,7 @@ class App extends Component {
 	  	 	<input type="text" value={this.state.newTodoDescription} onChange={ (e) => this.handleChange(e) }/>
 	  		<input type="submit" />
 	  	</form>
+	  	
       </div>
     );
   }
